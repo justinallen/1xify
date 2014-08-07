@@ -1,0 +1,102 @@
+#!/bin/sh
+
+ printf '\e[35m'
+echo "" 
+echo "1xify"
+echo "====="
+echo "Your handy retina asset helper."
+echo ""
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *"
+echo "1xify takes all files in directory, assumes they're exported at @2x,  |" 
+echo "appends that to the filename, duplicates as 1x and resizes by half.   |"
+echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - *"
+echo ""
+ printf '\e[m'
+echo "Continue? (y/n)"
+ printf '\e[32m'
+read choice
+ printf '\e[31m'
+
+case "$choice" in 
+y|Y ) 
+ echo "1xifying..."
+ printf '\e[m'
+
+#make temporary directory
+mkdir 1xify_temp
+
+files=*.*
+
+echo $files
+
+for file in $files
+
+do
+	filename=${file%.*}
+
+	printf '\e[35m'
+
+	#test for supported extensions and set extension variable 
+	if [ ${file: -4} == ".png" ]
+	then
+		ext=png
+		echo "processing .png file..."
+	elif [ ${file: -4} == ".jpg" ] 
+	then
+		ext=jpg
+		echo "processing .jpg file..."
+	elif [ ${file: -5} == ".jpeg" ] then
+	then
+		ext=jpeg
+		echo "processing .jpeg file..."
+	elif [ ${file: -4} == ".gif" ] then
+	then
+		ext=gif
+		echo "processing .gif file..."
+	else
+		echo "Error: unsupported file type"
+	fi
+
+	printf '\e[m'
+	printf '\e[32m'
+
+	cp $filename.$ext 1xify_temp/$filename@2x.$ext
+	echo "- $filename.$ext copied as @2x -"
+
+	printf '\e[m'
+
+    #resize files to 1x
+    convert $filename.$ext -resize 50% $filename.$ext 
+
+    echo "1x version of $filename.$ext created"
+
+done
+
+#move @2x files to working directory
+mv 1xify_temp/*.* ./
+
+#clean up temporary directory
+rm -r 1xify_temp
+
+ printf '\e[32m'
+ echo "========= 1x versions complete ========="
+ echo "========= 2x versions complete ========="
+
+ printf '\e[31m'
+echo "Done."
+ printf '\e[m'
+
+ # end case
+  ;;
+
+n|N ) 
+  echo "Exiting..."
+  echo ""
+
+  # end case
+  ;;
+
+* ) echo "invalid";;
+esac
+
+
