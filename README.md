@@ -1,9 +1,9 @@
 1xify
 =====
 
-####Utility for Producing Retina-Ready Graphics
+### Bash Utility for Producing Retina-Ready Graphical Assets
 
-**1xify** helps you produce retina-ready graphics. I wrote this script while producing a bunch of assets for a retina-ready project and needed to eliminate repetitive work.
+**1xify** helps you produce retina-ready graphics for an iOS or Apple app. I wrote this script while producing a bunch of assets for a retina-ready project and needed to eliminate repetitive work.
 
 **1xify** assumes you are designing at 2x: i.e. a logo which will end up displayed at 220 pixels will be designed at 440 pixels, then downscaled into a 1x version. Run `1xify` and it will append @2x to the filenames, put them in a folder, and save versions downscaled by 50% in the root of the directory. 
 
